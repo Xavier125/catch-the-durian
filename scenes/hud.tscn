@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3 uid="uid://jg2ptdf84w8j"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_0crgp"]
+[ext_resource type="PackedScene" uid="uid://oc1nlld7kmiw" path="res://scenes/heart.tscn" id="2_tpmvp"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_0crgp")
+
+[node name="Score" type="Label" parent="."]
+offset_left = 20.0
+offset_right = 47.0
+offset_bottom = 67.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+text = "0"
+
+[node name="Message" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -197.0
+offset_top = -103.5
+offset_right = 197.0
+offset_bottom = 103.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Catch the Durian"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="MessageTimer" type="Timer" parent="."]
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.5
+offset_top = -130.0
+offset_right = 60.5
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Start"
+
+[node name="LifeContainer" type="HBoxContainer" parent="."]
+layout_direction = 3
+offset_left = 24.0
+offset_top = 15.0
+offset_right = 240.0
+offset_bottom = 55.0
+metadata/_edit_group_ = true
+
+[node name="heart1" parent="LifeContainer" instance=ExtResource("2_tpmvp")]
+layout_mode = 2
+
+[node name="heart2" parent="LifeContainer" instance=ExtResource("2_tpmvp")]
+layout_mode = 2
+
+[node name="heart3" parent="LifeContainer" instance=ExtResource("2_tpmvp")]
+layout_mode = 2
+
+[node name="heart4" parent="LifeContainer" instance=ExtResource("2_tpmvp")]
+layout_mode = 2
+
+[node name="heart5" parent="LifeContainer" instance=ExtResource("2_tpmvp")]
+layout_mode = 2
+
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

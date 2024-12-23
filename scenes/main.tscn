@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3p2k6vwygahb"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_mrqfc"]
+[ext_resource type="PackedScene" uid="uid://c7gwcnj4noh22" path="res://scenes/durian.tscn" id="2_27s67"]
+[ext_resource type="PackedScene" uid="uid://b2ueu0lpbfsuj" path="res://scenes/basket.tscn" id="3_hp0mq"]
+[ext_resource type="PackedScene" uid="uid://jg2ptdf84w8j" path="res://scenes/hud.tscn" id="4_fj4sg"]
+
+[sub_resource type="Curve2D" id="Curve2D_x2uta"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 720, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 3
+
+[node name="Main" type="Node"]
+script = ExtResource("1_mrqfc")
+durian_scene = ExtResource("2_27s67")
+
+[node name="Basket" parent="." instance=ExtResource("3_hp0mq")]
+position = Vector2(371, 353)
+
+[node name="DurianTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(400, 375)
+
+[node name="DurianPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_x2uta")
+
+[node name="DurianSpawnLocation" type="PathFollow2D" parent="DurianPath"]
+
+[node name="HUD" parent="." instance=ExtResource("4_fj4sg")]
+
+[connection signal="durian_caught" from="Basket" to="." method="_on_basket_durian_caught"]
+[connection signal="timeout" from="DurianTimer" to="." method="_on_durian_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="new_game"]
